@@ -9,23 +9,25 @@ use Ramsey\Uuid\Guid\Guid;
 class Reservation extends Model
 {
     use HasFactory;
+    protected $perPage=6;
+
     protected $fillable = [
         'arrival',
         'departure',
         'details',
         'Is_active',
-        'guest_id',
         'user_id',
         'room_id',
         'num_of_guests',
+        'final_total',
     ];
-    public function rooms()
+    public function room()
     {
         return $this->belongsTo(Room::class, 'room_id', 'id');
     }
-    public function guest()
+    public function user()
     {
-        return $this->belongsTo(Guest::class, 'guest_id', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
 }

@@ -1,21 +1,17 @@
 <x-dashboard-layout>
 
-  <x-alert style="padding-top: 15px !important; padding-bottom: 10px !important;" />
 
-  <form action="/admin/rooms" method="get" class="d-flex probootstrap-section" style="padding: 10px !important; border:0px !important;">
+  <div style="margin-top: 20px !important;">
+    <x-alert />
+  </div>
+
+  <form action="{{ route('admin.rooms.index') }}" method="get" class="d-flex probootstrap-section" style="padding: 10px !important; border:0px !important;">
     <div class="">
-
       <div class="col-md-5  col-xs-5">
         <input type="text" class="form-control" name="room_name" placeholder="Search By Room Name">
       </div>
-      <div class="col-md-5 col-xs-5">
-        <select name="id" class="form-control">
-          <option value="">No Bedding Select</option>
-          @foreach ($room_search as $room)
-          <option value="{{ $room->id }}">{{ $room->bedding }}</option>
-          @endforeach
-
-        </select>
+      <div class="col-md-5  col-xs-5">
+        <input type="text" class="form-control" name="room_type" placeholder="Search By Room type">
       </div>
       <div class="col-md-2  col-xs-2">
         <button type="submit" class="btn" style="background:#903479; color: #fff;">Search</button>
@@ -25,9 +21,16 @@
     </div>
   </form>
 
-  <section class="probootstrap-section">
-    <p><a href="/admin/rooms/create" class="btn btn-primary" style="margin-top: 8px !important;" role="button">Create</a></p>
+  @can('create', App\Models\Room::class)
+  <div class="col-md-6">
+    <p><a href="{{ route('admin.rooms.create') }}" class="btn btn-primary" style="margin-top: 8px !important;" role="button">Create</a></p>
+  </div>
+  @endcan
+
+  <section class="probootstrap-section" style="padding-bottom: 5px !important;">
+
     <section>
+
       <section class="">
         <div class="row mt">
           <div class="col-lg-12">
@@ -37,9 +40,12 @@
                 <table class="table table-bordered table-striped table-condensed">
                   <thead>
                     <tr>
+                    <th>ID</th>
                       <th>Room Name</th>
                       <th>Room Type</th>
                       <th>Bedding</th>
+                      <th>Bathroom</th>
+                      <th>room_size</th>
                       <th>Price</th>
                       <th>Status</th>
                       <th>Image</th>
@@ -56,31 +62,37 @@
                   <tbody>
                     @foreach($rooms as $room)
                     <tr>
+                    <td>{{ $room->id }}</td>
                       <td>{{ $room->room_name }}</td>
                       <td>{{ $room->room_type }}</td>
                       <td>{{ $room->bedding }}</td>
-                      <td>{{ $room->current_price }}</td>
+                      <td>{{ $room->Bathroom }}</td>
+                      <td>{{ $room->room_size }}</td>
+
+                      <td>{{ $room->room_price }}</td>
                       <td>{{ $room->Is_active }}</td>
-                      <td>{{ $room->image }}</td>
+                      <td>
+                        <div>
+                          <img src="{{ $room->image_url }}" height="80" alt="">
+                        </div>
+                      </td>
+                  
                       <td>{{ $room->max_guest }}</td>
                       <td>{{ $room->children }}</td>
                       <td>{{ $room->adults }}</td>
                       <td>{{ $room->stars }}</td>
-                      <td>
-                        <form action="/admin/rooms/{{$room->id}}/edit" method="post" style="padding: 0px !important; border:0px !important;">
-                          @csrf
-                          @method('put')
-                          <button type="submit" class="btn btn-sm btn-primary">Update</a>
-                        </form>
-                      </td>
 
+                      @can('update', $room)
                       <td>
-                        <form action="/admin/rooms/{{ $room->id }}" method="post" style="padding: 0px !important; border:0px !important;">
-                          @csrf
-                          @method('delete')
-                          <button type="submit" class="btn btn-sm btn-primary">Delete</a>
-                        </form>
+                          <a type="submit" class="btn btn-sm btn-primary" href="{{route('admin.rooms.edit', $room->id ) }}">Update</a>
                       </td>
+                      @endcan
+
+                      @can('delete', $room)
+                      <td>
+                         <a type="submit" class="btn btn-sm btn-primary" href="{{route('admin.rooms.destroy', $room->id ) }}">Delete</a>
+                      </td>
+                      @endcan
 
                     </tr>
                     @endforeach
@@ -101,8 +113,8 @@
 
   {{ $rooms->links() }}
 
-    <script src="{{ asset('js/scripts.min.js') }}"></script>
-    <script src="{{ asset('js/main.min.js') }}"></script>
-    <script src="{{ asset('js/custom.js') }}"></script>
+  <script src="{{ asset('js/scripts.min.js') }}"></script>
+  <script src="{{ asset('js/main.min.js') }}"></script>
+  <script src="{{ asset('js/custom.js') }}"></script>
 
 </x-dashboard-layout>

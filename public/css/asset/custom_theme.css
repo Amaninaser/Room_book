@@ -1,0 +1,61 @@
+.daterangepicker td.active, .daterangepicker td.active:hover {
+    background-color: #fee101 !important;
+    color: #3c3027;
+}
+#ui-datepicker-div{display: none !important;}
+
+.daterangepicker .calendar-table .next span, .daterangepicker .calendar-table .prev span {
+    color: #333;
+    border: solid #333;
+    border-width: 0 2px 2px 0;
+    border-radius: 0;
+    display: inline-block;
+    padding: 3px;
+}
+#mobile-calendar-header .date, #mobile-calendar-header span.day, .daterangepicker .mobile-calendar-header p,
+.daterangepicker .mobile-calendar-header .check-out .date-check-title, .daterangepicker .mobile-calendar-header .check-in .date-check-title{
+      color: #3c3027;
+}
+.mobile-bottom-sticky-calendar .show_summary_mobile{
+    background-color: #b3b1b1;
+    color: #3c3027;
+    border: 1px solid #b3b1b1!important;
+    padding: 7px 0px;
+}
+.mobile-bottom-sticky-calendar .show_summary_mobile:hover{
+    background-color: #b3b1b1;
+}
+.mobile-bottom-sticky-calendar .mobile-continute-checkout{
+    background-color: #fee101 !important;
+    border: 1px solid #fee101!important;
+    color: #3c3027;
+}
+.mobile-bottom-sticky-calendar .mobile-continute-checkout:hover{
+    background-color: #fee101 !important;
+}
+.daterangepicker .calendar-table tr:first-child th{
+    background-color:#e4e2e2 !important;
+    
+}
+@media only screen and (min-width: 992px){
+    .daterangepicker .calendar-table table thead tr:first-child th {
+        background-color: #fee101 !important;
+        color: #3c3027 !important;
+    }
+    .daterangepicker .calendar-table .next span, .daterangepicker .calendar-table .prev span {
+        color: #3c3027;
+        border: solid #3c3027;
+        border-width: 0 2px 2px 0;
+        border-radius: 0;
+        display: inline-block;
+        padding: 3px;
+    }
+    .mobile-bottom-sticky-calendar_show {
+        opacity: 0;
+    }
+}
+@media only screen and (max-width: 991px){
+    .daterangepicker .mobile-calendar-header {
+        background-color: #fee101 !important;
+    }
+}

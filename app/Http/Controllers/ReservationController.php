@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Reservation;
 use App\Models\Room;
 use App\Models\Hotel;
+use App\Models\User;
 
 class ReservationController extends Controller
 {
@@ -18,10 +19,16 @@ class ReservationController extends Controller
      */
     public function index(Request $request)
     {
-        $reservations = Reservation::all();
-        return view('/admin/reservations/index',compact('reservations'));
+        $reservations = Reservation::with('room','user')
+            ->latest()
+            ->orderBy('arrival', 'ASC')
+            ->paginate(5);
+        return view('admin.reservations.index', [
+            'reservations' => $reservations,
+       
+        ]);
     }
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -30,12 +37,12 @@ class ReservationController extends Controller
 
     public function create()
     {
-        return view('reservationForm', [
+        return view('/reservationForm', [
             'reservation' => new Reservation(),
-            'guest' => new Guest(),
+            'room' => Room::all(),
+            'user' => User::all(),
         ]);
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -47,9 +54,10 @@ class ReservationController extends Controller
     {
         $reservation = new Reservation($request->all());
         $reservation->save();
-        return redirect()->route('reservationForm')->with(
-            'success','Reservation added Sccessufly!'
-        );
+        $request->merge([
+            'room_id' => $request->post('room_id'),
+        ]);
+        return redirect()->route('/reservationForm')->with('success','Reservation Added Sccessufly!');
     }
 
 
@@ -63,8 +71,8 @@ class ReservationController extends Controller
     public function destroy($id)
     {
         $reservation = Reservation::findOrFail($id);
-        $reservation->delete(); 
-      
+        $reservation->delete();
+
         return redirect('/admin/reservations/index')
             ->with('success', 'Successfully deleted your reservation!');
     }

@@ -18,11 +18,13 @@ class CreateReservationsTable extends Migration
             $table->date('arrival');
             $table->date('departure');
             $table->string('details');
-            $table->enum('Is_active',['Active','Non_Active']); // check this one
+            $table->enum('Is_active',['Active','Non_Active'])->nullable(); // check this one
             $table->unsignedBigInteger('room_id');
-            $table->foreign('room_id')->references('id')->on('rooms');
-            $table->integer('num_of_guests');
+            $table->foreign('room_id')->nullable()->references('id')->on('rooms');
+            $table->integer('num_of_guests')->nullable();
+            $table->decimal('final_total')->nullable();
             $table->timestamps();
+            
         });
     }
 

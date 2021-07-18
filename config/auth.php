@@ -41,6 +41,11 @@ return [
             'provider' => 'users',
         ],
 
+        'guest' => [
+            'driver' => 'session',
+            'provider' => 'guests',
+        ],
+
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
@@ -53,7 +58,7 @@ return [
     | User Providers
     |--------------------------------------------------------------------------
     |
-    | All authentication drivers have a user provider. This defines how the
+    | -All authentication drivers have a user provider. This defines how the
     | users are actually retrieved out of your database or other storage
     | mechanisms used by this application to persist your user's data.
     |
@@ -69,6 +74,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        'guests' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Guest::class,
         ],
 
         // 'users' => [
@@ -95,6 +104,12 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'guests' => [
+            'provider' => 'guests',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

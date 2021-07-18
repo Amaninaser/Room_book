@@ -7,14 +7,14 @@
     <div class="col-lg-12">
       <div class="form-panel">
         <div class="form">
-          <form class="cmxform form-horizontal style-form" id="signupForm" method="POST" class="mb-3" 
-          action="{{route('rooms.create') }}" enctype="multipart/form-data">
-            @csrf 
-            @method('put')         
+          <form class="cmxform form-horizontal style-form" id="signupForm" method="post" class="mb-3"
+           action="{{ route('admin.rooms.store') }}" enctype="multipart/form-data">
+            @csrf
+            
             <div class="form-group mb-3">
               <label for="room_name" class="control-label col-lg-2">Room Name:</label>
               <div class="col-lg-10">
-                <input type="text" name="current_price" class="form-control @error('room_name') is-invaild  @enderror">
+                <input type="text" name="room_name" class="form-control @error('room_name') is-invaild  @enderror">
                 @error('room_name')
                 <p class="invaild-feedback">{{ $message }}</p>
                 @enderror
@@ -47,6 +47,19 @@
                 <p class="invaild-feedback text-red">{{ $message }}</p>
                 @enderror
               </div>
+            </div>
+              
+        
+              <div class="form-group mb-3">
+              <label for="Bathroom" class="control-label col-lg-2">Room Bathroom:</label>
+              <div class="col-lg-10">
+                <label><input type="radio" name="Bathroom" value="Separate"> Separate</label>
+                <label><input type="radio" name="Bathroom" value="Double"> Double</label>
+              
+                @error('Bathroom')
+                <p class="invaild-feedback text-red">{{ $message }}</p>
+                @enderror
+              </div>
 
             </div>
 
@@ -62,10 +75,10 @@
             </div>
 
             <div class="form-group mb-3">
-              <label for="current_price" class="control-label col-lg-2">Room Price:</label>
+              <label for="room_price" class="control-label col-lg-2">Room Price:</label>
               <div class="col-lg-10">
-                <input type="text" name="current_price" class="form-control @error('current_price') is-invaild  @enderror">
-                @error('current_price')
+                <input type="text" name="room_price" class="form-control @error('room_price') is-invaild  @enderror">
+                @error('room_price')
                 <p class="invaild-feedback">{{ $message }}</p>
                 @enderror
               </div>
@@ -73,15 +86,50 @@
             </div>
 
             <div class="form-group mb-3">
-              <label for="image" class="control-label col-lg-2">Room Image:</label>
+              <label for="room_size" class="control-label col-lg-2">Room Size:</label>
               <div class="col-lg-10">
-                <input type="file" name="image" class="form-control @error('image') is-invaild  @enderror">
+                <input type="text" name="room_size" class="form-control @error('room_size') is-invaild  @enderror">
+                @error('room_size')
+                <p class="invaild-feedback">{{ $message }}</p>
+                @enderror
+              </div>
+
+            </div>
+
+
+            <div class="form-group mb-3">
+              <label for="image" class="control-label col-lg-2">Room Image:</label>
+
+              <div class="col-lg-10">
+                <div style="padding-bottom: 10px !important;">
+                  <img src="{{ $room->image_url }}" height="100" alt="">
+                </div>
+
+                <input type="file" name="image" class="form-control @error('image') is-invaild  @enderror" value="{{ old('image', $room->image) }}">
                 @error('image')
                 <p class="invaild-feedback text-red">{{ $message }}</p>
                 @enderror
               </div>
 
             </div>
+
+            <div class="form-group mb-3">
+              <label for="image" class="control-label col-lg-2">Room Gallery:</label>
+              <div class="col-lg-10">
+                <div class="row" style="padding-bottom: 10px !important;">
+                  @foreach($room->images as $image)
+                  <div class="co-md-2">
+                    <img src="{{ $room->image_url }}" class="img-fit m-1 border p-1" height="80" alt="">
+                  </div>
+                  @endforeach
+                </div>
+                <input type="file" name="gallery[]" multiple class="form-control @error('gallery') is-invaild  @enderror" value="{{ old('gallery', $room->image) }}">
+                @error('gallery')
+                <p class="invaild-feedback text-red">{{ $message }}</p>
+                @enderror
+              </div>
+            </div>
+
 
             <div class="form-group mb-3">
               <label for="Is_active" class="control-label col-lg-2">Room Active:</label>
@@ -171,6 +219,7 @@
                 <button class="btn btn-theme04" type="button">Cancel</button>
               </div>
             </div>
+
           </form>
         </div>
       </div>

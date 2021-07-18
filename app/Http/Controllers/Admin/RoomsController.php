@@ -4,7 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Room;
+use GMP;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
+use League\CommonMark\Extension\SmartPunct\PunctuationParser;
+use Illuminate\Support\Str;
+
 
 class RoomsController extends Controller
 {
@@ -15,9 +21,12 @@ class RoomsController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('viewAny', Room::class);
+
         $rooms = Room::when($request->room_name, function ($query, $value) {
             $query->where(function ($query) use ($value) {
-                $query->where('room_name', 'LIKE', "%$value%");
+                $query->where('room_name', 'LIKE', "%$value%")
+                    ->orWhere('rooms.room_type', 'LIKE', "%{$value}%");
             });
         })
             ->when($request->id, function ($query, $value) {
@@ -37,6 +46,8 @@ class RoomsController extends Controller
 
     public function create()
     {
+        $this->authorize('create', Room::class);
+
         $title = 'Add Room';
         return view('admin.rooms.create', [
             'room' => new Room(),
@@ -44,7 +55,7 @@ class RoomsController extends Controller
         ]);
     }
 
-    /**
+    /** 
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -52,14 +63,42 @@ class RoomsController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(Room::validateRoles());
+        $this->authorize('create', Room::class);
 
-        $room = new Room($request->all());
-        $room->save();
-        return redirect()->route('admin.rooms.index')->with(
-            'success',
-            'Romm ($room->room_name) added Sccessufly!'
-        );
+        $request->validate(Room::validateRoles());
+        $request->merge([
+            'slug' => Str::slug($request->post('room_name')),
+        ]);
+        $data = $request->all();
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $data['image'] = $file->store('/image', [
+                'disk' => 'uploads'
+            ]);
+        }
+
+
+        $room = Room::create($data);
+
+        //Gallery
+        if ($request->hasFile('gallery')) {
+            foreach ($request->file('gallery') as $file) {
+                $image_path = $file->store('/image', [
+                    'disk' => 'uploads'
+                ]);
+
+                $room->images()->create([
+                    'image_path' => $image_path,
+                ]);
+            }
+        }
+
+        return redirect()->route('admin.rooms.index')
+            ->with(
+                'success',
+                "Room ($room->room_name) added Sccessufly!"
+            );
     }
 
     /**
@@ -69,16 +108,12 @@ class RoomsController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-
-
-
     public function show($id)
     {
         $room = Room::findOrFail($id);
-        if ($room == null) {
-            abort(404);
-        }
-        return view('admin.rooms.show', compact('room'));
+        $this->authorize('view',$room);
+
+        return view('/admin/rooms/show', compact('room'));
     }
 
 
@@ -88,6 +123,7 @@ class RoomsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function edit($id)
     {
 
@@ -95,6 +131,8 @@ class RoomsController extends Controller
         if ($room == null) {
             abort(404);
         }
+        $this->authorize('update', $room);
+
         return view('admin.rooms.edit', compact('room'));
     }
 
@@ -109,14 +147,49 @@ class RoomsController extends Controller
 
     public function update(Request $request, $id)
     {
-        $room = Room::findOrFail($id);
-        $request->validate(Room::validateRoles());
-        $room->update($request->all());
 
-        return redirect()->route('admin.rooms.index')->with(
-            'success',
-            'Romm ($room->room_name) Updated Sccessufly!'
-        );
+        $room = Room::findOrFail($id);
+        if ($room == null) {
+            abort(404);
+        }
+        $this->authorize('update', $room);
+
+        $request->validate(Room::validateRoles());
+
+        //image
+        $data = $request->all();
+        $previous = false;
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $data['image'] = $file->store('/image', [
+                'disk' => 'uploads'
+            ]);
+            $previous = $room->image;
+        }
+
+        $room->update($data);
+        if ($previous) {
+            Storage::disk('uploads')->delete($previous);
+        }
+
+        //Gallery
+        if ($request->hasFile('gallery')) {
+            foreach ($request->file('gallery') as $file) {
+                $image_path = $file->store('/image', [
+                    'disk' => 'uploads'
+                ]);
+
+                $room->images()->create([
+                    'image_path' => $image_path,
+                ]);
+            }
+        }
+
+        return redirect()->route('admin.rooms.index')
+            ->with(
+                'success',
+                "Room ($room->room_name) Updated Sccessufly!"
+            );
     }
 
 
@@ -129,12 +202,17 @@ class RoomsController extends Controller
      */
     public function destroy($id)
     {
-        $room = Room::findOrFail($id);
-        $room->delete();
 
-        return redirect()->route('admin.rooms.index')->with(
-            'success',
-            'Romm ($room->room_name) Deleted Sccessufly!'
-        );
+        $room = Room::findOrFail($id);
+   
+        $this->authorize('delete', $room);
+       $room->delete();
+
+        if ($room->image) {
+            Storage::disk('uploads')->delete($room->image);
+        }
+
+        return redirect()->route('admin.rooms.index')
+            ->with('success', "Room ($room->room_name) Deleted Sccessufly!");
     }
 }

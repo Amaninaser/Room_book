@@ -3,7 +3,8 @@
         <div class="col-lg-12">
             <div class="form-panel">
                 <div class="form">
-                    <form class="cmxform form-horizontal style-form" id="signupForm" method="post" class="mb-3" action="admin/contacts/{{$data->id}}">
+                    <form class="cmxform form-horizontal style-form"
+                     id="signupForm" method="post" class="mb-3" action="{{ route('admin.contacts.update', $data->id) }}">
                         @csrf
                         @method('put')
 

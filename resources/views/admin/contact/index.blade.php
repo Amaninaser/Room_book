@@ -1,6 +1,6 @@
 <x-dashboard-layout>
 
-<section class="probootstrap-section">
+  <section class="probootstrap-section">
     <section>
       <section class="">
         <div class="row mt">
@@ -17,36 +17,29 @@
                     <th>SUBJECT</th>
                     <th>MESSAGE</th>
                     <th>ACTION</th>
-                </thead>
+                  </thead>
 
-                <tbody>
+                  <tbody>
                     @foreach($data as $row)
                     <tr>
 
-                        <td>{{$row->id }}</td>
-                        <td>{{$row->name }}</td>
-                        <td>{{$row->email }}</td>
-                        <td>{{$row->phone }}</td>
-                        <td>{{$row->subject }}</td>
-                        <td>{{$row->message }}</td>
-
-                        <td>
-                            <form action="/admin/contacts/{{ $row->id }}" method="post" style="padding:0em !important; border:0em !important;">
-                                @csrf
-                                @method('delete')
-                                <button type="submit" class="btn btn-sm btn-primary" role="button">Delete</a>
-                            </form>
-                            </form>
-
-                        </td>
+                      <td>{{$row->id }}</td>
+                      <td>{{$row->name }}</td>
+                      <td>{{$row->email }}</td>
+                      <td>{{$row->phone }}</td>
+                      <td>{{$row->subject }}</td>
+                      <td>{{$row->message }}</td>
+                      <td>
+                        <a type="submit" class="btn btn-sm btn-primary" href="{{route('admin.contacts.destroy',  $row->id ) }}" style="padding:0em !important; border:0em !important;">Delete</a>
+                      </td>
                     </tr>
                     @endforeach
-                </tbody>
+                  </tbody>
 
-            </table>
-        </div>
-        <div>
-            <?php echo $data->render(); ?>
-        </div>
-    </div>
+                </table>
+            </div>
+            <div>
+              <?php echo $data->render(); ?>
+            </div>
+          </div>
 </x-dashboard-layout>

@@ -4,7 +4,7 @@
     <div class="col-lg-12">
       <div class="form-panel">
         <div class="form">
-          <form class="cmxform form-horizontal style-form" id="signupForm" method="post" class="mb-3" action="/admin/rooms/store" enctype="multipart/form-data">
+          <form class="cmxform form-horizontal style-form" id="signupForm" method="post" class="mb-3" action="{{ route('admin.contact.store') }}" enctype="multipart/form-data">
             @csrf    
             <div class="form-group mb-3 required">
                             <label for="name" class="control-label col-lg-2">Name:</label>

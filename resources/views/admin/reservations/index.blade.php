@@ -1,7 +1,12 @@
 <x-dashboard-layout>
-  <x-alert />
+
+
+  <div style="margin-top: 20px !important;">
+    <x-alert />
+  </div>
+
   <section>
-    <section class="wrapper">
+    <section class="">
       <h3><i class="fa fa-angle-right"></i>All Reservation Guest</h3>
       <div class="row mt">
         <div class="col-lg-12">
@@ -11,17 +16,17 @@
               <table class="table table-bordered table-striped table-condensed">
                 <thead>
                   <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
+                    <th>User ID</th>
+                    <th>Name</th>
                     <th>Email</th>
                     <th>Phone</th>
-                    <!-- <th>Brithday</th>
-                      <th>Gender</th>
-                      <th>City Name</th> -->
-                    <th>National</th>
+                    <th>Room ID</th>
+
+                    <th>Room Name</th>
+                    <th>Room Type</th>
                     <th>Arrival</th>
                     <th>Departure</th>
-                    <th>Is_active</th>
+                    <th>Max Guest</th>
                     <th>Total Price</th>
                     <th>Delete</th>
 
@@ -31,29 +36,19 @@
                 <tbody>
                   @foreach ($reservations as $reservation)
                   <tr>
-
-
-                    <td>{{ $reservation->guest->first_name }}</td>
-                    <td>{{ $reservation->guest->last_name }}</td>
-                    <td>{{ $reservation->guest->email }}</td>
-                    <td>{{ $reservation->guest->phone }}</td>
-                    <!-- <td>{{ $reservation->guest->Brithday }}</td>
-        <td>{{ $reservation->guest->gender }}</td>
-        <td>{{ $reservation->guest->city->city_name }}</td> -->
-
+                    <td>{{ $reservation->user->id }}</td>
+                    <td>{{ $reservation->user->name }}</td>
+                    <td>{{ $reservation->user->email }}</td>
+                    <td>{{ $reservation->user->phone }}</td>
+                    <td>{{ $reservation->room->id }}</td>
+                    <td>{{ $reservation->room->room_name }}</td>
+                    <td>{{ $reservation->room->room_type }}</td>
                     <td>{{ $reservation->arrival }}</td>
                     <td>{{ $reservation->departure }}</td>
-                    <td>{{ $reservation->Is_active }}</td>
-                    <td>{{ $reservation->total_price }} </td>
-
+                    <td>{{ $reservation->room->max_guest }}</td>
+                    <td>$ {{ $reservation->room->room_price }} </td>
                     <td>
-                      <form action="/admin/reservations/{{ $reservation->id }}" method="post" style="padding: 0px !important; border:0px !important;">
-                        @csrf
-                        @method('delete')
-                        <button type="submit" class="btn btn-primary">Delete</a>
-                      </form>
                     </td>
-
                   </tr>
                   @endforeach
                 </tbody>
@@ -68,7 +63,6 @@
     </section>
     <!-- /wrapper -->
   </section>
-
 
 
   <script src="{{ asset('js/scripts.min.js') }}"></script>

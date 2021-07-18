@@ -11,7 +11,9 @@ class GuestsController extends Controller
 {
     public function index(Request $request)
     {
-        $guests = Guest::all();
+        $guests = Guest::latest('first_name')
+        ->paginate(3)
+        ->all();
         return view('admin.guests.index',compact('guests'));
     }
 
@@ -19,22 +21,21 @@ class GuestsController extends Controller
     {
     
         $guest  = Guest::findOrFail($id);
-        $city   = City::all();
-        if($guest == null){
-            abort(404);
-        }
-        return view('admin.guests.edit', compact('guest','city'));
+
+        return view('admin.guests.edit', [
+            'guest' => $guest,
+             'city' => City::all(),
+        ]);
 
     }
 
     public function update(Request $request, $id)
     {
         $guest = Guest::findOrFail($id);
-       // $request->validate(Guest::validateRoles());
         $data = $request->all();
         $guest->update($data);
       
-        return redirect()->route('admin.guests.index')
+        return redirect('/admin/guests')
         ->with('success', 'guest Updated!');
 
     }
@@ -44,7 +45,7 @@ class GuestsController extends Controller
         $guests = Guest::findOrFail($id);
         $guests->delete(); 
       
-        return redirect()->route('admin.guests.index')
+        return redirect('/admin/guests')
             ->with('success', 'Successfully deleted your guest!');
     }
 }

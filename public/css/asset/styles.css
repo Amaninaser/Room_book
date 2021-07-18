@@ -1,0 +1,235 @@
+@font-face {
+  font-family: 'hotelfont';
+  src:
+    url('fonts/hotelfont.ttf?q1lmgz') format('truetype'),
+    url('fonts/hotelfont.woff?q1lmgz') format('woff'),
+    url('fonts/hotelfont.svg?q1lmgz#hotelfont') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'hotelfont' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-star-half:before {
+  content: "\e945";
+}
+.icon-cocktail:before {
+  content: "\e900";
+}
+.icon-cutlery:before {
+  content: "\e901";
+}
+.icon-hair-dryer:before {
+  content: "\e902";
+}
+.icon-museum:before {
+  content: "\e903";
+}
+.icon-ride:before {
+  content: "\e904";
+}
+.icon-ancient-jar:before {
+  content: "\e905";
+}
+.icon-air-conditioner:before {
+  content: "\e906";
+}
+.icon-swimming-pool:before {
+  content: "\e907";
+}
+.icon-wifi:before {
+  content: "\e908";
+}
+.icon-coffee:before {
+  content: "\e909";
+}
+.icon-dinner:before {
+  content: "\e90a";
+}
+.icon-family-group:before {
+  content: "\e90b";
+}
+.icon-wifi1:before {
+  content: "\e90c";
+}
+.icon-office-clip:before {
+  content: "\e90d";
+}
+.icon-label:before {
+  content: "\e90e";
+}
+.icon-bus:before {
+  content: "\e90f";
+}
+.icon-stars:before {
+  content: "\e910";
+}
+.icon-two-man:before {
+  content: "\e911";
+}
+.icon-food:before {
+  content: "\e912";
+}
+.icon-double-size-bed:before {
+  content: "\e913";
+}
+.icon-bathtub:before {
+  content: "\e914";
+}
+.icon-completed-tasks:before {
+  content: "\e915";
+}
+.icon-envelope:before {
+  content: "\e916";
+}
+.icon-equalizator:before {
+  content: "\e917";
+}
+.icon-facebook-logo:before {
+  content: "\e918";
+}
+.icon-twitter-logo1:before {
+  content: "\e919";
+}
+.icon-google-logo:before {
+  content: "\e91a";
+}
+.icon-instagram-logo:before {
+  content: "\e91b";
+}
+.icon-icon-play:before {
+  content: "\e91c";
+}
+.icon-information:before {
+  content: "\e91d";
+}
+.icon-instagram-logo1:before {
+  content: "\e91e";
+}
+.icon-more-button:before {
+  content: "\e91f";
+}
+.icon-placeholder-fill:before {
+  content: "\e920";
+}
+.icon-placeholder:before {
+  content: "\e921";
+}
+.icon-placeholder1:before {
+  content: "\e922";
+}
+.icon-minus:before {
+  content: "\e923";
+}
+.icon-plus:before {
+  content: "\e924";
+}
+.icon-question:before {
+  content: "\e925";
+}
+.icon-search:before {
+  content: "\e926";
+}
+.icon-support:before {
+  content: "\e927";
+}
+.icon-skype-logo:before {
+  content: "\e928";
+}
+.icon-star-black:before {
+  content: "\e929";
+}
+.icon-sun:before {
+  content: "\e92a";
+}
+.icon-telegram:before {
+  content: "\e92b";
+}
+.icon-telephone:before {
+  content: "\e92c";
+}
+.icon-bars-chart:before {
+  content: "\e92d";
+}
+.icon-tick:before {
+  content: "\e92e";
+}
+.icon-time:before {
+  content: "\e92f";
+}
+.icon-twitter-logo:before {
+  content: "\e930";
+}
+.icon-user:before {
+  content: "\e931";
+}
+.icon-viber:before {
+  content: "\e932";
+}
+.icon-whatsapp:before {
+  content: "\e933";
+}
+.icon-add-button:before {
+  content: "\e934";
+}
+.icon-arrow-down:before {
+  content: "\e935";
+}
+.icon-arrow-up:before {
+  content: "\e936";
+}
+.icon-closed-envelope:before {
+  content: "\e937";
+}
+.icon-calendar:before {
+  content: "\e938";
+}
+.icon-gallery-plus:before {
+  content: "\e939";
+}
+.icon-close:before {
+  content: "\e93a";
+}
+.icon-up-arrow:before {
+  content: "\e93b";
+}
+.icon-arrow-left:before {
+  content: "\e93c";
+}
+.icon-arrow-right:before {
+  content: "\e93d";
+}
+.icon-forward-left:before {
+  content: "\e93e";
+}
+.icon-forward-right:before {
+  content: "\e93f";
+}
+.icon-plus1:before {
+  content: "\e940";
+}
+.icon-minus1:before {
+  content: "\e941";
+}
+.icon-decor1:before {
+  content: "\e943";
+}
+.icon-decor2:before {
+  content: "\e944";
+}
+.icon-menu:before {
+  content: "\e942";
+}

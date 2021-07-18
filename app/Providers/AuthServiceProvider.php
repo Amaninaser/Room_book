@@ -13,7 +13,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        // 'App\Models\Room' => 'App\Policies\RoomPolicy',
     ];
 
     /**
@@ -25,22 +25,5 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        // Auth gates for: Countries
-        /*
-        Gate::define('country_access', function ($user) {
-            return in_array($user->role_id, [1, 2]);
-        });
-        Gate::define('country_create', function ($user) {
-            return in_array($user->role_id, [1, 2]);
-        });
-        Gate::define('country_edit', function ($user) {
-            return in_array($user->role_id, [1, 2]);
-        });
-        Gate::define('country_view', function ($user) {
-            return in_array($user->role_id, [1, 2]);
-        });
-        Gate::define('country_delete', function ($user) {
-            return in_array($user->role_id, [1, 2]);
-        });*/
     }
 }

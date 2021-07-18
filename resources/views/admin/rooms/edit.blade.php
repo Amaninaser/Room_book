@@ -1,15 +1,16 @@
 <x-dashboard-layout>
-    <div class="container" style="margin-top: 15px !important;">
+    <div  class="col-md-6" style="margin-top: 15px !important;">
         <h2 class="my-2"> Edit Room </h2>
     </div>
     </div>
+  
     <div class="row mt">
         <div class="col-lg-12">
             <div class="form-panel">
                 <div class="form">
-                    <form class="cmxform form-horizontal style-form" id="signupForm" method="post" class="mb-3" action="/admin/rooms/{{$room->id}}" enctype="multipart/form-data">
-                        @csrf
-                        @method('put')
+                    <form class="cmxform form-horizontal style-form" method="post" action="{{ route('admin.rooms.update', $room->id ) }}" enctype="multipart/form-data">
+                        <input type="hidden" name="_method" value="put">
+                        <?= csrf_field() ?>
                         <div class="form-group mb-3">
                             <label for="room_name" class="control-label col-lg-2">Room Name:</label>
                             <div class="col-lg-10">
@@ -32,6 +33,7 @@
                             <p class="invaild-feedback">{{ $message }}</p>
                             @enderror
                         </div>
+
                         <div class="form-group mb-3">
                             <label for="bedding" class="control-label col-lg-2">Room Bedding:</label>
                             <div class="col-lg-10">
@@ -46,6 +48,17 @@
                         </div>
 
                         <div class="form-group mb-3">
+                            <label for="Bathroom" class="control-label col-lg-2">Room Bathroom:</label>
+                            <div class="col-lg-10">
+                                <label><input type="radio" name="Bathroom" value="Separate" @if ( old('Bathroom', $room->Bathroom) == 'Separate') checked @endif> Separate</label>
+                                <label><input type="radio" name="Bathroom" value="Double" @if (old('Bathroom', $room->Bathroom) == 'Double') checked @endif> Double</label>
+                            </div>
+                            @error('Bathroom')
+                            <p class="invaild-feedback text-red">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="form-group mb-3">
                             <label for="description" class="control-label col-lg-2">Room Description:</label>
                             <div class="col-lg-10">
                                 <textarea class="form-control @error('description') is-invaild  @enderror" name="description" value="{{ old('description', $room->description) }}"></textarea>
@@ -55,22 +68,57 @@
                             </div>
                         </div>
 
+
                         <div class="form-group mb-3">
-                            <label for="current_price" class="control-label col-lg-2">Room Price:</label>
+                            <label for="room_price" class="control-label col-lg-2">Room Price:</label>
                             <div class="col-lg-10">
-                                <input type="text" name="current_price" value="{{ old('current_price', $room->current_price) }}" class="form-control @error('current_price') is-invaild  @enderror">
-                                @error('current_price')
+                                <input type="text" name="room_price" value="{{ old('room_price', $room->room_price) }}" class="form-control @error('room_price') is-invaild  @enderror">
+                                @error('room_price')
                                 <p class="invaild-feedback">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="room_size" class="control-label col-lg-2">Room Size:</label>
+                            <div class="col-lg-10">
+                                <input type="text" name="room_size" value="{{ old('room_size', $room->room_size) }}" class="form-control @error('room_size') is-invaild  @enderror">
+                                @error('room_size')
+                                <p class="invaild-feedback">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group mb-3">
+                            <label for="image" class="control-label col-lg-2">Room Image:</label>
+                            <div class="col-lg-10">
+                                <div style="padding-bottom: 10px !important;">
+                                    <img src="{{ $room->image_url }}" height="100" alt="">
+                                </div>
+
+                                <input type="file" name="image" class="form-control @error('image') is-invaild  @enderror" value="{{ old('image', $room->image) }}">
+                                @error('image')
+                                <p class="invaild-feedback text-red">{{ $message }}</p>
                                 @enderror
                             </div>
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="image" class="control-label col-lg-2">Room Image:</label>
+                            <label for="image" class="control-label col-lg-2">Room Gallery:</label>
                             <div class="col-lg-10">
-                                <input type="file" name="image" class="form-control @error('image') is-invaild  @enderror" value="{{ old('image', $room->image) }}">
-                                @error('image')
-                                <p class="invaild-feedback">{{ $message }}</p>
+                                <div class="row">
+                                    @foreach($room->images as $image)
+                                    <div class="co-md-2">
+                                        <img src="{{ $image->image_url }}" class="img m-1 border p-1" height="80" alt="">
+                                    </div>
+                                    @endforeach
+                                </div>
+                                <input type="file" name="gallery[]" multiple class="form-control @error('gallery') is-invaild  @enderror" value="{{ old('image', $room->image) }}">
+                                @error('gallery')
+                                <p class="invaild-feedback text-red">{{ $message }}</p>
                                 @enderror
                             </div>
                         </div>
