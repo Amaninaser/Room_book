@@ -1,15 +1,14 @@
 
 <?php
 
-use App\Http\Controllers\Admin\RoomsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\indexController;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\RoomController;
-use Laravel\Jetstream\Http\Controllers\Inertia\UserProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +21,7 @@ use Laravel\Jetstream\Http\Controllers\Inertia\UserProfileController;
 |
 */
 
+
 Route::namespace('Admin')
     ->prefix('admin')
     ->as('admin.')
@@ -30,31 +30,35 @@ Route::namespace('Admin')
         Route::resource('users', 'UserController');
         Route::resource('rooms', 'RoomsController');
         Route::resource('roles', 'RolesController');
-        Route::get('contact', [ContactController::class, 'index'])->name('index');
-    });  
-    Route::resource('admin/reservations', 'ReservationController');
-    Route::get('admin/show', [UserController::class, 'show'])->name('admin.show');
-    Route::get('myprofile/show', [UserController::class, 'user'])->name('myprofile/show.show');
+        Route::resource('contact', 'ContactController');
+    });
 
 
-Route::get('/reservationForm', [ReservationController::class, 'create'])->name('reservationForm');
-Route::post('/reservationForm', [ReservationController::class, 'store'])->name('reservationForm.store');
+Route::resource('admin/reservations', 'ReservationController');
+Route::get('admin/show', [UserController::class, 'show'])->name('admin.show');
+Route::get('myprofile/show', [UserController::class, 'user'])->name('myprofile/show');
+
+Route::get('myprofile/reservations',  [ReservationController::class, 'user'])->name('myprofile/reservations');
+
+Route::get('/reservationForm', [ReservationController::class, 'create'])->name('reservationForm')->middleware('auth', 'user.type:user');
+Route::post('/reservationForm', [ReservationController::class, 'store'])->name('reservationForm.store')->middleware('auth', 'user.type:user');
 Route::get('/contact-form', [App\Http\Controllers\ContactController::class, 'contactForm'])->name('contact-form');
 Route::post('/contact-form', [App\Http\Controllers\ContactController::class, 'storeContactForm'])->name('contact-form.store');
 
 Route::get('room', [App\Http\Controllers\indexController::class, 'room'])->name('room');
 Route::get('room/{slug}', [RoomController::class, 'show'])->name('room.show');
 
-Route::get('/hotels', 'HotelController@index');
 Route::get('/', [indexController::class, 'index']);
 
-Route::get('/about', function(){
-   return view('/admin/about'); 
+Route::get('/about', function () {
+    return view('/admin/about');
 });
 
+Route::get('/register', [RegisteredUserController::class, 'create'])
+                ->middleware('guest')
+                ->name('register');
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth','verified'])->name('dashboard');
+Route::post('/register', [RegisteredUserController::class, 'store'])
+                ->middleware('guest');
 
-require __DIR__.'/auth.php';
+//require __DIR__ . '/auth.php';

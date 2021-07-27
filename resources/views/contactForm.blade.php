@@ -20,18 +20,10 @@
     </ul>
 </section>
   
+<div class="container" style="margin-top: 20px !important;">
+    <x-alert />
+  </div>
 
-    <div class="container">
-
-        @if(Session::has('success'))
-        <div class="alert alert-success">
-            {{ Session::get('success') }}
-            @php
-            Session::forget('success');
-            @endphp
-        </div>
-        @endif
-    </div>
 
     <section class="probootstrap-section">
         <div class="container">

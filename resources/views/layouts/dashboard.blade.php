@@ -79,7 +79,7 @@
       <div id="sidebar" class="nav-collapse ">
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
-          <p class="centered"><a href="profile.html"><img src="{{asset('img/ui-sam.jpg')}}" class="img-circle" width="80"></a></p>
+          <p class="centered"><a href="profile.html"><img src="{{asset('images/person_1.jpg')}}" class="img-circle" width="80"></a></p>
           @auth('web')
           <h5 class="centered">Hi, {{ Auth::user()->name }}</h5>
           @endauth
@@ -110,12 +110,7 @@
             </a>
           </li>
 
-          <li class="mt-3">
-            <a href="/admin/reservations">
-              <i class="fa fa-check-square"></i>
-              <span>Confirm Reservation</span>
-            </a>
-          </li>
+        
 
 
 
@@ -127,7 +122,7 @@
           </li>
 
           <li class="mt-3">
-            <a class="@if(request()->routeIs('admin.index')) active @endif" href="{{ route('admin.index') }}">
+            <a class="@if(request()->routeIs('admin.contact.index')) active @endif" href="{{ route('admin.contact.index') }}">
               <i class="fa fa-envelope"></i>
               <span>Contacts</span>
             </a>
@@ -160,13 +155,8 @@
           &copy; Copyrights <strong>Dashio</strong>. All Rights Reserved
         </p>
         <div class="credits">
-          <!--
-            You are NOT allowed to delete the credit link to TemplateMag with free version.
-            You can delete the credit link only if you bought the pro version.
-            Buy the pro version with working PHP/AJAX contact form: https://templatemag.com/dashio-bootstrap-admin-template/
-            Licensing information: https://templatemag.com/license/
-          -->
-          Created with Dashio template by <a href="https://templatemag.com/">TemplateMag</a>
+         
+          Created with Dashio template by <a href="/admin/rooms">Amani Naser</a>
         </div>
         <a href="index.html#" class="go-top">
           <i class="fa fa-angle-up"></i>
@@ -210,10 +200,8 @@
         // (string | mandatory) the heading of the notification
         title: 'Welcome to Dashio!',
         // (string | mandatory) the text inside the notification
-        text: 'Hover me to enable the Close Button. You can hide the left sidebar clicking on the button next to the logo. Developed by <a href="http://alvarez.is" target="_blank" style="color:#4ECDC4">Alvarez.is</a>.',
         // (string | optional) the image to display on the left
-        image: '{{ asset('
-        img / ui - sam.jpg ') }}',
+        image: '{{ asset('images/person_1.jpg') }}',
         // (bool | optional) if you want it to fade out on its own or just sit there
         sticky: false,
         // (int | optional) the time you want it to be alive for before fading out

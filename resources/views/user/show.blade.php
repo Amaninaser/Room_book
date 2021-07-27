@@ -1,25 +1,11 @@
 @extends('home')
 @section('title', 'User Profile')
 @section('content')
-<style>
-    table {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
-    }
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
-    td,
-    th {
-        border: 1px solid #dddddd;
-        text-align: left;
-        padding: 8px;
-    }
 
-    tr:nth-child(even) {
-        background-color: #dddddd;
 
-    }
-</style>
 <section class="probootstrap-slider flexslider">
 
   <ul class="slides">
@@ -55,54 +41,74 @@
 </section>
 
 <section>
-    <section class="container">
+  <section class="container">
 
-        <h2>My Profile:</h2>
+    <h2>My Profile:</h2>
 
-        <table>
-            @foreach ($user as $user)
-            @if($user->type === 'user')
-            <tr>
-                <th>Personal Detail</th>
-                <th>Detail</th>
-            </tr>
-            <tr>
-                <td>Name</td>
-                <td>{{ Auth::user()->name }}</td>
-            </tr>
-            <tr>
-                <td>Email</td>
-                <td>{{Auth::user()->email}}</td>
-            </tr>
-            <tr>
-                <td>Country Name</td>
-                <td>{{Auth::user()->country}}</td>
-            </tr>
-            <tr>
-                <td>City Name</td>
-                <td>{{Auth::user()->city}}</td>
-            </tr>
-            <tr>
-                <td>Phone</td>
-                <td>{{Auth::user()->phone}}</td>
-            </tr>
-            <tr>
-                <td>Brithday</td>
-                <td>{{Auth::user()->Brithday}}</td>
-            </tr>
-            <tr>
-                <td>Gender</td>
-                <td>{{Auth::user()->gender}}</td>
-            </tr>
-            <tr>
-                <td>National</td>
-                <td>{{Auth::user()->National}}</td>
-            </tr>
-            @endif
-            @endforeach
-        </table>
-  
-    </section>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-12">
+          <div class="well well-sm">
+            <div class="row">
+              @foreach ($user as $user)
+              @if($user->id ===Auth::user()->id)
+              <div class="col-sm-6 col-md-4">
+                @if($user->gender === 'Famale')
+                <img src="{{ asset('images/person_1.jpg') }}" height="350" width="250" alt="" class="img-rounded img-responsive" />
+           @else
+           <img src="{{ asset('images/person_2.jpg') }}" height="350" width="250" alt="" class="img-rounded img-responsive" />
+                @endif 
+              </div>
+              <div class="col-sm-6 col-md-8">
+                <h2>
+                  {{ Auth::user()->name }}  
+                  <a href="myprofile/edit">
+                  <button  type="button" class="btn btn-primary">Update</button>
+
+                  </a>
+                </h2>
+                
+                <p><cite title=""><i class="fa fa-globe"> </i> {{Auth::user()->city}}, {{Auth::user()->country}} </cite></p>
+                <div class="row">
+                  <div class="col-md-6">
+
+                    <p class="ml-2">
+                      <i class="fa fa-envelope"> </i> {{Auth::user()->email}}
+                      <br />
+                      <i class="fa fa-globe"></i> {{Auth::user()->National}}
+
+                      <br />
+                      <i class="fa fa-building"></i> {{Auth::user()->city}}
+                    </p>
+                  </div>
+                  <div class="col-md-6">
+                    <p>
+
+                      <i class="fa fa-birthday-cake"> </i> {{Auth::user()->Brithday}}
+                      <br /> 
+                      <i class="fa fa-phone-square"></i> {{Auth::user()->phone}}
+                      <br />
+                      <i class="fa fa-venus-mars"></i> {{Auth::user()->gender}}
+                    </p>
+                    <br />
+
+                    </p> <!-- Split button -->
+                 
+                  </div>
+
+                </div>
+              </div>
+              @endif
+              @endforeach
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </section>
 </section>
 
 <script src="{{ asset('js/scripts.min.js') }}"></script>

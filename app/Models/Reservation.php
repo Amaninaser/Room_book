@@ -13,6 +13,7 @@ class Reservation extends Model
 
     protected $fillable = [
         'arrival',
+        'name',
         'departure',
         'details',
         'Is_active',

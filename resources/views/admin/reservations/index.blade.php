@@ -5,6 +5,7 @@
     <x-alert />
   </div>
 
+
   <section>
     <section class="">
       <h3><i class="fa fa-angle-right"></i>All Reservation Guest</h3>
@@ -28,6 +29,7 @@
                     <th>Departure</th>
                     <th>Max Guest</th>
                     <th>Total Price</th>
+                    <!-- <th>Confirm</th> -->
                     <th>Delete</th>
 
                   </tr>
@@ -47,7 +49,11 @@
                     <td>{{ $reservation->departure }}</td>
                     <td>{{ $reservation->room->max_guest }}</td>
                     <td>$ {{ $reservation->room->room_price }} </td>
+                    <!-- <td>
+                      <a type="submit" class="btn btn-sm btn-primary" href="{{ route('reservations.edit', $reservation->id ) }}">Edit</a>
+                    </td> -->
                     <td>
+                      <a type="submit" class="btn btn-sm btn-primary" href="{{ route('reservations.show', $reservation->id ) }}">Delete</a>
                     </td>
                   </tr>
                   @endforeach

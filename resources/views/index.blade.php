@@ -153,6 +153,7 @@
       <div class="col-md-12 probootstrap-relative">
         <div class="owl-carousel owl-carousel-carousel">
           @foreach ($rooms as $room)
+          @if($room->Is_active == 'Non_Active')
 
           <div class="item">
             <div class="probootstrap-room">
@@ -169,6 +170,7 @@
               </div>
             </div>
           </div>
+          @endif
           @endforeach
 
         </div>

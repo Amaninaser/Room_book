@@ -1,7 +1,7 @@
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
-            <a href="/">
+            <a href="register">
                 <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
             </a>
         </x-slot>
@@ -23,7 +23,7 @@
             <div class="mt-4">
                 <x-label for="email" :value="__('Email')" />
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
             </div>
 
             <!-- Password -->
@@ -43,7 +43,7 @@
               <!-- country -->
               <div class="mt-4">
                 <x-label for="country" :value="__('Country')" />
-                <select name="country" class="form-control">
+                <select name="country" class="form-control" required autofocus>
                     <option value="">Select Country</option>
                     @foreach(Symfony\Component\Intl\Countries::getNames() as $code => $name)
                     <option value="{{ $code }}">{{ $name }}</option>
@@ -69,15 +69,15 @@
             <!-- Brithday -->
             <div class="mt-4">
                 <x-label for="Brithday" :value="__('Brithday')" />
-                <x-input id="Brithday" class="block mt-1 w-full" type="date" name="Brithday" :value="old('Brithday')" required autofocus />
+                <x-input id="Brithday" for="Brithday" class="block mt-1 w-full" type="date" name="Brithday" :value="old('Brithday')" required autofocus />
 
             </div>
 
             <!-- gender -->
             <div class="mt-4">
                 <x-label for="gender" :value="__('Gender')" />
-                <div class="col-md-6">
-                    <div><input id="Famale" type="radio" class="form-control" name="gender" value="Famale"> {{ (old('gender') == 'Famale') ? 'checked' : '' }} Famale</div>
+                <div class="col-md-6" required>
+                    <div><input id="Famale" type="radio" class="form-control" name="gender" value="Famale" > {{ (old('gender') == 'Famale') ? 'checked' : '' }} Famale</div>
                     <div><input id="Male" type="radio" class="form-control" name="gender" value="Male"> {{ (old('gender') == 'Male') ? 'checked' : '' }} Male</div>
 
                 </div>
@@ -86,9 +86,9 @@
             <!-- National -->
             <div class="mt-4">
                 <x-label for="National" :value="__('National') />
-                <div class=" col-md-6">
+                <div class=" col-md-6" required>
                     <div>
-                        <input id="Palestine" type="radio" class="form-control" name="National" value="Palestine"> {{ (old('gender') == 'Palestine') ? 'checked' : '' }} Palestine
+                        <input id="Palestine" type="radio" class="form-control" name="National" value="Palestine"> {{ (old('National') == 'Palestine') ? 'checked' : '' }} Palestine
                     </div>
                     <div>
                         <input id="Non-Palestine" type="radio" class="form-control" name="National" value="Non-Palestine"> {{ (old('gender') == 'Non-Palestine') ? 'checked' : '' }} Non-Palestine
@@ -99,8 +99,8 @@
           
 
 
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
+            <div class="flex items-center justify-end mt-4" style="margin-bottom: 2em; ">
+                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}"  style="color: #ffff !important;">
                     {{ __('Already registered?') }}
                 </a>
 

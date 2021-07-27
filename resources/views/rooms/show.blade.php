@@ -129,6 +129,48 @@
     </div>
 </section>
 
+<section class="probootstrap-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 probootstrap-relative">
+        <h3 class="mt0 mb30">More Rooms</h3>
+        <ul class="probootstrap-owl-navigation absolute right">
+          <li><a href="{{route('room.show',$room->slug) }}" class="probootstrap-owl-prev"><i class="icon-chevron-thin-left"></i></a></li>
+          <li><a href="{{route('room.show',$room->slug) }}" class="probootstrap-owl-next"><i class="icon-chevron-thin-right"></i></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 probootstrap-relative">
+        <div class="owl-carousel owl-carousel-carousel">
+          @foreach ($rooms as $room)
+          @if($room->Is_active == 'Non_Active')
+
+          <div class="item">
+            <div class="probootstrap-room">
+              <a href="{{route('room.show',$room->slug) }}"><img src="{{ $room->image_url }}" width="200" height="200 alt="Free Bootstrap Template by uicookies.com" class="img-responsive"></a>
+              <div class="text">
+                <h3>{{ $room->room_type }}</h3>
+                <p>Starting from <strong>${{ $room->room_price }}/Night</strong></p>
+                <div class="post-meta">
+                  <ul>
+                    <li><span class="review-rate">{{ $room->stars }}</span> <i class="icon-star"></i> 255 Reviews</li>
+                    <li><i class="icon-user2"></i> {{ $room->max_guest }} Guests</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          @endif
+          @endforeach
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <script src="{{ asset('js/scripts.min.js') }}"></script>
 <script src="{{ asset('js/main.min.js') }}"></script>
 <script src="{{ asset('js/custom.js') }}"></script>

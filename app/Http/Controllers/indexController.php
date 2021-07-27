@@ -15,7 +15,18 @@ class indexController extends Controller
     }
     public function room(Request $request)
     {
-        $rooms = Room::all();
+        $rooms = Room::when($request->room_type, function ($query, $value) {
+            $query->where(function ($query) use ($value) {
+                $query->where('room_price', 'LIKE', "%$value%")
+                    ->orWhere('rooms.room_type', 'LIKE', "%{$value}%");
+            });
+        })
+            ->when($request->id, function ($query, $value) {
+                $query->where('id', '=', $value);
+            })
+            ->latest('room_type')
+            ->paginate(3);
+       
         return view('room', compact('rooms'));
     }
 }

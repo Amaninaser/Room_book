@@ -20,17 +20,11 @@
   </ul>
 </section>
 
-<div class="container">
-
-  @if(Session::has('success'))
-  <div class="alert alert-success">
-    {{ Session::get('success') }}
-    @php
-    Session::forget('success');
-    @endphp
+<div class="container" style="margin-top: 20px !important;">
+    <x-alert />
   </div>
-  @endif
-</div>
+
+
 
 <section class="probootstrap-section">
   <div class="container">
@@ -46,29 +40,29 @@
               <label for="user_id">Email</label>
               <div class="form-field">
               <i class="icon icon-mail"></i>
-              <lablel for="user_id" name="user_id" class="form-control" value="{{ Auth::user()->email }}">{{ Auth::user()->email }}</label>
+              <lablel for="user_id" name="user_id" class="form-control" value="{{ Auth::user()->id }}">{{ Auth::user()->email }}</label>
             </div>
           </div>
           </div>
 
           <div class="form-group">
             <div class="form-group">
-              <label for="user_id">User</label>
+              <label for="user_id">User Name</label>
               <div class="form-field">
-              <i class="icon icon-user"></i>
-              <lablel for="user_id" name="user_id" class="form-control" value="{{ Auth::user()->name }}">{{ Auth::user()->name }}</label>
+              <i class="icon icon-mail"></i>
+              <lablel for="user_id" name="user_id" class="form-control" value="{{ Auth::user()->id }}">{{ Auth::user()->name }}</label>
             </div>
           </div>
           </div>
           
           <div class="form-group">
-            <label for="room">Room Name:</label>
+            <label for="room">Room Type:</label>
             <div class="form-field">
               <i class="icon icon-chevron-down"></i>
-              <select name="room_id" class="form-control @error('room_name') is-invalid @enderror">
+              <select name="room_id" class="form-control @error('room_type') is-invalid @enderror">
                 <option value="">Select Room Type</option>
                 @foreach ($room as $room)
-                <option value="{{ $room->id }}" @if($room->id == old('room_id', $reservation->room_id) ) selected @endif >{{ $room->room_name }}</option>
+                <option value="{{ $room->id }}" @if($room->id == old('room_id', $reservation->room_id) ) selected @endif >{{ $room->room_type }}</option>
                 @endforeach
               </select>
               @error('room_id')
@@ -109,40 +103,6 @@
             </div>
           </div>
 
-
-          <!-- <div class="row mb30">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="adults">Adults</label>
-                <div class="form-field">
-                  <i class="icon icon-chevron-down"></i>
-                  <select name="adults" id="adults" class="form-control">
-                    <option value="">Number of Adults</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4+</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="children">Children</label>
-                <div class="form-field">
-                  <i class="icon icon-chevron-down"></i>
-                  <select name="children" id="children" class="form-control">
-                    <option value="">Number of Children</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4+</option>
-                  </select>
-                </div>
-
-              </div>
-            </div>
-          </div> -->
 
           <div class="form-group">
             <input type="submit" class="btn btn-primary btn" id="submit" name="submit" value="Reserve">

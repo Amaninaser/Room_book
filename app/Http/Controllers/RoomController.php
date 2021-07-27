@@ -7,18 +7,15 @@ use Illuminate\Http\Request;
 
 class RoomController extends Controller
 {
-  public function room(Request $request)
-  {
-    $room = Room::all();
-    return view('rooms.show', compact('room'));
-  }
   
   public function show($slug)
   {
+    $rooms = Room::all(); 
     $room = Room::where('slug', $slug)->firstOrFail();
     return view('rooms.show', [
       'room' => $room,
       'image' => $room->images,
+      'rooms' => $rooms,
     ]);
   }
 }

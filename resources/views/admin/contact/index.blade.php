@@ -3,6 +3,7 @@
   <section class="probootstrap-section">
     <section>
       <section class="">
+      <h3><i class="fa fa-angle-right"></i>All Contact Guest</h3>
         <div class="row mt">
           <div class="col-lg-12">
             <div class="content-panel">
@@ -30,7 +31,7 @@
                       <td>{{$row->subject }}</td>
                       <td>{{$row->message }}</td>
                       <td>
-                        <a type="submit" class="btn btn-sm btn-primary" href="{{route('admin.contacts.destroy',  $row->id ) }}" style="padding:0em !important; border:0em !important;">Delete</a>
+                        <a type="submit" class="btn btn-primary" href="{{route('admin.contact.destroy',  $row->id ) }}" >Delete</a>
                       </td>
                     </tr>
                     @endforeach

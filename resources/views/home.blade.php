@@ -8,6 +8,7 @@
   <title>uiCookies:Atlantis &mdash; Free Bootstrap Theme, Free Responsive Bootstrap Website Template</title>
   <meta name="description" content="Free Bootstrap Theme by uicookies.com">
   <meta name="keywords" content="free website templates, free bootstrap themes, free template, free bootstrap, free website template">
+  <link rel="shortcut icon" type="image/x-icon" href="{{ asset('img/icon.ico')}}">
 
   <link href="https://fonts.googleapis.com/css?family=Crimson+Text:300,400,700|Rubik:300,400,700,900" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('css/styles-merged.css') }}">
@@ -48,28 +49,21 @@
           <li><a href="/reservationForm">Reservation</a></li>
           <li class="hidden-xs probootstrap-logo-center"><a href="/"><img src="{{ asset('img/logo_md.png') }}" class="hires" width="181" height="50" alt="Free Bootstrap Template by uicookies.com"></a></li>
           <li><a href="/contact-form">Contact</a></li>
-
+        @guest  <li><a title="Login" href="{{ route('login') }}">Login</a></li>
+          <li><a title="Register" href="{{ route('register') }}">Register</a></li> @endguest
           @if(Route::has('login'))
           @auth
           @if(Auth::user()->type === 'user')
           <li> <a title="My Account" href="/myprofile/show">My Account ({{ Auth::user()->name }})</a></i>
-
-          <li> <a title="My Account" href="/myprofile/show">My Reservation</a></i>
-
+          <li> <a title="My Account" href="/myprofile/reservations">My Reservation</a></i>
           <li> <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> Logout </a></i>
 
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
               {{ csrf_field() }}
             </form>
-
-            @else
-          <li class="menu-item"><a title="Register or Login" href="{{ route('login') }}">Login</a></li>
-          <li class="menu-item"><a title="Register or Login" href="{{ route('register') }}">Register</a></li>
-          @endif
-          @endauth
-          @endif
-
-
+            @endif
+            @endauth
+            @endif
 
         </ul>
         <div class="extra-text visible-xs">
