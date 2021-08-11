@@ -205,12 +205,9 @@ class RoomsController extends Controller
 
         $room = Room::findOrFail($id);
    
-        $this->authorize('delete', $room);
        $room->delete();
 
-        if ($room->image) {
-            Storage::disk('uploads')->delete($room->image);
-        }
+        
 
         return redirect()->route('admin.rooms.index')
             ->with('success', "Room ($room->room_name) Deleted Sccessufly!");
