@@ -57,8 +57,8 @@ class UserController extends Controller
         $data = $request->all();
         $user->update($data);
       
-        return redirect('/admin/users')
-        ->with('success', 'user Updated!');
+        return redirect('/admin/show')
+        ->with('success', 'Admin Updated!');
 
     }
 

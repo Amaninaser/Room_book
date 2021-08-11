@@ -2,8 +2,11 @@
 
 
   <div style="margin-top: 20px !important;">
+  
     <x-alert />
+
   </div>
+
   <form action="{{ route('admin.users.index') }}" method="get" class="d-flex probootstrap-section" style="padding: 10px !important; border:0px !important;">
     <div class="">
       <div class="col-md-5  col-xs-5">

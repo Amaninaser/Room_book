@@ -1,6 +1,9 @@
-@extends('home')
-@section('title', 'User Profile')
-@section('content')  
+<x-dashboard-layout>
+
+<div style="margin-top: 20px !important;">
+    <x-alert />
+  </div>
+
   <div class="" style="margin-top: 15px !important;">
         <h2 class="my-2"> Edit My Profile </h2>
     </div>
@@ -9,7 +12,7 @@
         <div class="col-lg-12">
             <div class="form-panel">
                 <div class="form">
-                    <form class="cmxform form-horizontal style-form" id="signupForm" method="post" class="mb-3" action="{{ route('admin.users.updateuser', $user->id ) }}" enctype="multipart/form-data">
+                    <form class="cmxform form-horizontal style-form" id="signupForm" method="post" class="mb-3" action="{{ route('admin.users.update', $user->id ) }}" enctype="multipart/form-data">
                         @csrf
                         @method('put')
 
@@ -119,4 +122,8 @@
         </div>
         <!-- /col-lg-12 -->
     </div>
-@endsection
+    <script src="{{ asset('js/scripts.min.js') }}"></script>
+  <script src="{{ asset('js/main.min.js') }}"></script>
+  <script src="{{ asset('js/custom.js') }}"></script>
+
+</x-dashboard-layout>
